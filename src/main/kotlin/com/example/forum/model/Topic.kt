@@ -1,5 +1,6 @@
 package com.example.forum.model
 
+import com.example.forum.dto.TopicView
 import java.time.LocalDateTime
 
 data class Topic(
@@ -13,3 +14,13 @@ data class Topic(
     val answers: List<Answer> = ArrayList()
 
 )
+
+fun Topic.toTopicView(): TopicView {
+    return TopicView(
+        id = this.id,
+        title = this.title,
+        message = this.message,
+        topicStatus = this.status,
+        creationDate = this.creationDate
+    )
+}

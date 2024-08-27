@@ -1,23 +1,26 @@
 package com.example.forum.controller
 
-import com.example.forum.model.Topic
+import com.example.forum.dto.TopicForm
+import com.example.forum.dto.TopicView
 import com.example.forum.service.TopicService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/topics")
 class TopicController(private val service: TopicService) {
 
     @GetMapping
-    fun list(): List<Topic> {
+    fun list(): List<TopicView> {
         return service.list()
     }
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: Long): Topic {
+    fun findById(@PathVariable id: Long): TopicView {
         return service.findById(id)
+    }
+
+    @PostMapping
+    fun add(@RequestBody topicForm: TopicForm) {
+        service.add(topicForm)
     }
 }
