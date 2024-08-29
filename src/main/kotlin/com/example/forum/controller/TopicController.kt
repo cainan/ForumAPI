@@ -1,8 +1,10 @@
 package com.example.forum.controller
 
-import com.example.forum.dto.TopicForm
+import com.example.forum.dto.NewTopicForm
 import com.example.forum.dto.TopicView
+import com.example.forum.dto.UpdateTopicForm
 import com.example.forum.service.TopicService
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -20,7 +22,17 @@ class TopicController(private val service: TopicService) {
     }
 
     @PostMapping
-    fun add(@RequestBody topicForm: TopicForm) {
-        service.add(topicForm)
+    fun add(@RequestBody @Valid newTopicForm: NewTopicForm) {
+        service.add(newTopicForm)
+    }
+
+    @PutMapping
+    fun update(@RequestBody @Valid updateTopicForm: UpdateTopicForm) {
+        service.update(updateTopicForm)
+    }
+
+    @DeleteMapping("/{id}")
+    fun remove(@PathVariable id: Long) {
+        service.remove(id)
     }
 }

@@ -1,66 +1,51 @@
 package com.example.forum.service
 
-import com.example.forum.dto.TopicForm
+import com.example.forum.dto.NewTopicForm
 import com.example.forum.dto.TopicView
+import com.example.forum.dto.UpdateTopicForm
+import com.example.forum.mapper.TopicFormMapper
+import com.example.forum.mapper.TopicViewMapper
 import com.example.forum.model.Topic
-import com.example.forum.model.toTopicView
 import org.springframework.stereotype.Service
 
 @Service
 class TopicService(
     private var topicList: ArrayList<Topic> = ArrayList(),
-    private val courseService: CourseService,
-    private val userService: UserService
+    private val topicViewMapper: TopicViewMapper,
+    private val topicFormMapper: TopicFormMapper
 ) {
-
-//    init {
-//        val topic1 = Topic(
-//            id = 1,
-//            title = "Duvida sobre Spring",
-//            message = "Estou com duvida nessa parte",
-//            course = Course(id = 1, name = "Curso de Spring", category = "Dev"),
-//            author = User(id = 1, name = "Nan", email = "cs@gm.cm"),
-//        )
-//        val topic2 = Topic(
-//            id = 2,
-//            title = "Duvida sobre Kotlin",
-//            message = "Estou com duvida nessa parte",
-//            course = Course(id = 1, name = "Curso de Spring", category = "Dev"),
-//            author = User(id = 1, name = "Nan", email = "cs@gm.cm"),
-//        )
-//        val topic3 = Topic(
-//            id = 3,
-//            title = "Duvida sobre Android",
-//            message = "Estou com duvida nessa parte",
-//            course = Course(id = 1, name = "Curso de Spring", category = "Dev"),
-//            author = User(id = 1, name = "Nan", email = "cs@gm.cm"),
-//        )
-//
-//        topicList = arrayListOf(topic1, topic2, topic3)
-//    }
 
     fun list(): List<TopicView> {
         return topicList.map { topic ->
-            topic.toTopicView()
+            topicViewMapper.map(topic)
         }
     }
 
     fun findById(id: Long): TopicView {
-        return topicList.first {
+        return topicViewMapper.map(topicList.first {
             it.id == id
-        }.toTopicView()
+        })
     }
 
-    fun add(topicForm: TopicForm) {
+    fun add(newTopicForm: NewTopicForm) {
         topicList.add(
-            Topic(
-                id = topicList.size + 1L,
-                title = topicForm.title,
-                message = topicForm.message,
-                course = courseService.findById(topicForm.idCourse),
-                author = userService.findById(topicForm.idAuthor),
-            )
+            topicFormMapper.map(newTopicForm).apply { id = topicList.size + 1L }
         )
+    }
+
+    fun update(updateTopicForm: UpdateTopicForm) {
+        val first = topicList.first {
+            it.id == updateTopicForm.id
+        }
+        topicList.remove(first)
+        val edited = first.copy(title = updateTopicForm.title, message = updateTopicForm.message)
+        topicList.add(edited)
+    }
+
+    fun remove(id: Long) {
+        topicList.remove(topicList.first {
+            it.id == id
+        })
     }
 
 }
