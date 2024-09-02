@@ -27,19 +27,20 @@ class TopicService(
         })
     }
 
-    fun add(newTopicForm: NewTopicForm) {
-        topicList.add(
-            topicFormMapper.map(newTopicForm).apply { id = topicList.size + 1L }
-        )
+    fun add(newTopicForm: NewTopicForm): TopicView {
+        val topic = topicFormMapper.map(newTopicForm).apply { id = topicList.size + 1L }
+        topicList.add(topic)
+        return topicViewMapper.map(topic)
     }
 
-    fun update(updateTopicForm: UpdateTopicForm) {
+    fun update(updateTopicForm: UpdateTopicForm): TopicView {
         val first = topicList.first {
             it.id == updateTopicForm.id
         }
         topicList.remove(first)
         val edited = first.copy(title = updateTopicForm.title, message = updateTopicForm.message)
         topicList.add(edited)
+        return topicViewMapper.map(edited)
     }
 
     fun remove(id: Long) {
