@@ -37,7 +37,6 @@ class TopicController(private val service: TopicService) {
     @PutMapping
     fun update(
         @RequestBody @Valid updateTopicForm: UpdateTopicForm,
-        uriBuilder: UriComponentsBuilder
     ): ResponseEntity<TopicView> {
         val topicView = service.update(updateTopicForm)
         return ResponseEntity.ok(topicView)
