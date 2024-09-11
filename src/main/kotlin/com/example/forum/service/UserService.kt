@@ -1,19 +1,13 @@
 package com.example.forum.service
 
-import com.example.forum.model.User
+import com.example.forum.model.UserT
+import com.example.forum.repository.UserRepository
 import org.springframework.stereotype.Service
 
 @Service
-class UserService(private var userList: ArrayList<User> = ArrayList()) {
-    init {
-        val user1 = User(id = 1, name = "User I", email = "user1@gmail.com")
-        userList.add(user1)
-    }
+class UserService(private val repository: UserRepository) {
 
-    fun findById(id: Long): User {
-        return userList.first {
-            it.id == id
-        }
+    fun findById(id: Long): UserT {
+        return repository.getReferenceById(id)
     }
 }
-

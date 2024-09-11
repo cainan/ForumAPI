@@ -1,18 +1,13 @@
 package com.example.forum.service
 
 import com.example.forum.model.Course
+import com.example.forum.repository.CourseRepository
 import org.springframework.stereotype.Service
 
 @Service
-class CourseService(private val courseList: ArrayList<Course> = ArrayList()) {
-    init {
-        val course1 = Course(id = 1L, name = "Kotlin I", category = "Software")
-        courseList.add(course1)
-    }
+class CourseService(private val repository: CourseRepository) {
 
     fun findById(id: Long): Course {
-        return courseList.first {
-            it.id == id
-        }
+        return repository.getReferenceById(id)
     }
 }
