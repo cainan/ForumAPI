@@ -5,4 +5,4 @@ create table course(
     primary key(id)
 );
 
-insert into course values (1, 'Kotlin Spring Boot', 'Software')
+insert into course values (1, 'Kotlin', 'Software')

@@ -7,6 +7,8 @@ import com.example.forum.exception.NotFoundException
 import com.example.forum.mapper.TopicFormMapper
 import com.example.forum.mapper.TopicViewMapper
 import com.example.forum.repository.TopicRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -16,8 +18,13 @@ class TopicService(
     private val topicFormMapper: TopicFormMapper
 ) {
 
-    fun list(): List<TopicView> {
-        return repository.findAll().map { topic ->
+    fun list(courseName: String?, pagination: Pageable): Page<TopicView> {
+        val topicList = if (courseName == null) {
+            repository.findAll(pagination)
+        } else {
+            repository.findByCourseName(courseName, pagination)
+        }
+        return topicList.map { topic ->
             topicViewMapper.map(topic)
         }
     }
