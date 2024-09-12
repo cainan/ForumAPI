@@ -6,8 +6,10 @@ spring:
     password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    defer-datasource-initialization: true
+    #defer-datasource-initialization: true
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+
+  #flyway.locations.filesystem: db/migration

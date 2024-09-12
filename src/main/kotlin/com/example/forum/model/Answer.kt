@@ -10,7 +10,7 @@ data class Answer(
     val message: String,
     val creationDate: LocalDateTime = LocalDateTime.now(),
     @ManyToOne
-    val author: UserT,
+    val author: User,
     @ManyToOne
     val topic: Topic,
     val isSolution: Boolean = false

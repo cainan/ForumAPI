@@ -14,7 +14,7 @@ data class Topic(
     @ManyToOne
     val course: Course,
     @ManyToOne
-    val author: UserT,
+    val author: User,
     @Enumerated(value = EnumType.STRING)
     val status: TopicStatus = TopicStatus.NOT_ANSWERED,
     @OneToMany(mappedBy = "topic")
