@@ -1,12 +1,14 @@
 package com.example.forum.service
 
 import com.example.forum.dto.NewTopicForm
+import com.example.forum.dto.TopicPerCategoryDto
 import com.example.forum.dto.TopicView
 import com.example.forum.dto.UpdateTopicForm
 import com.example.forum.exception.NotFoundException
 import com.example.forum.mapper.TopicFormMapper
 import com.example.forum.mapper.TopicViewMapper
 import com.example.forum.repository.TopicRepository
+import jakarta.persistence.EntityManager
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -15,10 +17,12 @@ import org.springframework.stereotype.Service
 class TopicService(
     private val repository: TopicRepository,
     private val topicViewMapper: TopicViewMapper,
-    private val topicFormMapper: TopicFormMapper
+    private val topicFormMapper: TopicFormMapper,
+    private val em: EntityManager
 ) {
 
     fun list(courseName: String?, pagination: Pageable): Page<TopicView> {
+        println(em)
         val topicList = if (courseName == null) {
             repository.findAll(pagination)
         } else {
@@ -59,6 +63,10 @@ class TopicService(
 //            throw NotFoundException("Topic not found")
 //        }
         repository.deleteById(id)
+    }
+
+    fun createReport(): List<TopicPerCategoryDto> {
+        return repository.createReport()
     }
 
 }

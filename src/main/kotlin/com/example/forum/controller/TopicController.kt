@@ -1,6 +1,7 @@
 package com.example.forum.controller
 
 import com.example.forum.dto.NewTopicForm
+import com.example.forum.dto.TopicPerCategoryDto
 import com.example.forum.dto.TopicView
 import com.example.forum.dto.UpdateTopicForm
 import com.example.forum.service.TopicService
@@ -61,5 +62,10 @@ class TopicController(private val service: TopicService) {
     @Transactional
     fun remove(@PathVariable id: Long) {
         service.remove(id)
+    }
+
+    @GetMapping("/report")
+    fun report(): List<TopicPerCategoryDto> {
+        return service.createReport()
     }
 }
