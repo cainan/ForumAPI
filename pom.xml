@@ -59,6 +59,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		<!-- If you want to cache in product, must add the dependency of the framework that will be used. -->
 		<dependency>
 			<groupId>com.h2database</groupId>
