@@ -19,6 +19,7 @@ class SecurityConfiguration() {
         return http
             .csrf { it.disable() }
             .authorizeHttpRequests {
+                it.requestMatchers("/topics").hasAuthority("READ_WRITE")
                 it.anyRequest().authenticated()
             }
             .sessionManagement {
