@@ -27,7 +27,7 @@ class SecurityConfiguration(
             .csrf { it.disable() }
             .authorizeHttpRequests {
                 it.requestMatchers(HttpMethod.POST, "/login").permitAll()
-//                it.requestMatchers("/topics").hasAuthority("READ_WRITE")
+                    .requestMatchers("/topics").hasAuthority("READ_WRITE")
                     .anyRequest().authenticated()
             }
             .addFilterBefore(

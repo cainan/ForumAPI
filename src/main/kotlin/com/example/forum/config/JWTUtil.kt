@@ -1,5 +1,7 @@
 package com.example.forum.config
 
+import com.example.forum.model.Role
+import com.example.forum.service.UserService
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Value
@@ -9,15 +11,16 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class JWTUtil {
+class JWTUtil(private val userService: UserService)  {
 
     @Value("\${jwt.secret}")
     private lateinit var secret: String
     private val expiration: Long = 60000
 
-    fun generateToken(username: String): String? {
+    fun generateToken(username: String, authorities: List<Role>): String? {
         return Jwts.builder()
             .setSubject(username)
+            .claim("role", authorities)
             .setExpiration(Date(System.currentTimeMillis() + expiration))
             .signWith(SignatureAlgorithm.HS512, secret.toByteArray())
             .compact()
@@ -35,6 +38,7 @@ class JWTUtil {
 
     fun getAuthentication(jwt: String?): Authentication {
         val username = Jwts.parser().setSigningKey(secret.toByteArray()).parseClaimsJws(jwt).body.subject
-        return UsernamePasswordAuthenticationToken(username, null, null)
+        val authorities = userService.loadUserByUsername(username).authorities
+        return UsernamePasswordAuthenticationToken(username, null, authorities)
     }
 }
