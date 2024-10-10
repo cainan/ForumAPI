@@ -1,0 +1,18 @@
+docker pull mysql:8.0.28
+
+docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+docker exec -it some-mysql bash
+mysql -u root -p
+create database forum;
+use forum;
+
+docker run -d -p 3306:3306 --name mysql-container -e MYSQL_ROOT_PASSWORD=root -e MYSQL_PASSWORD=root mysql:8.0.32
+docker exec -it mysql-container bash
+mysql -u root -p
+create database forum;
+use forum;
+
+
+
+
+
