@@ -1,6 +1,7 @@
 package com.example.forum.dto
 
 import com.example.forum.model.TopicStatus
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class TopicView(
@@ -8,7 +9,8 @@ data class TopicView(
     val title: String,
     val message: String,
     val topicStatus: TopicStatus,
-    val creationDate: LocalDateTime
+    val creationDate: LocalDateTime,
+    val editedDate: LocalDate?
 ) {
 
 }

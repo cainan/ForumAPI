@@ -1,6 +1,7 @@
 package com.example.forum.model
 
 import jakarta.persistence.*
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 
@@ -18,5 +19,6 @@ data class Topic(
     @Enumerated(value = EnumType.STRING)
     val status: TopicStatus = TopicStatus.NOT_ANSWERED,
     @OneToMany(mappedBy = "topic")
-    val answers: List<Answer> = ArrayList()
+    val answers: List<Answer> = ArrayList(),
+    var editedDate: LocalDate? = null
 )
