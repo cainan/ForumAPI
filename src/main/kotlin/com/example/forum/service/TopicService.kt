@@ -19,11 +19,11 @@ class TopicService(
     private val repository: TopicRepository,
     private val topicViewMapper: TopicViewMapper,
     private val topicFormMapper: TopicFormMapper,
-    private val em: EntityManager
+    /*private val em: EntityManager*/
 ) {
 
     fun list(courseName: String?, pagination: Pageable): Page<TopicView> {
-        println(em)
+//        println(em)
         val topicList = if (courseName == null) {
             repository.findAll(pagination)
         } else {

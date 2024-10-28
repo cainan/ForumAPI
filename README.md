@@ -4,3 +4,5 @@
 - Spring Boot
 - Flyway
 - Cache 
+- Mockk
+- AssertJ
