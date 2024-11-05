@@ -5,6 +5,7 @@ import com.example.forum.dto.TopicPerCategoryDto
 import com.example.forum.dto.TopicView
 import com.example.forum.dto.UpdateTopicForm
 import com.example.forum.service.TopicService
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
 import org.springframework.cache.annotation.CacheEvict
@@ -18,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
 @RequestMapping("/topics")
+@SecurityRequirement(name = "bearerAuth")
 class TopicController(private val service: TopicService) {
 
     @GetMapping
@@ -39,7 +41,7 @@ class TopicController(private val service: TopicService) {
     @CacheEvict(value = ["topicListCache"], allEntries = true)
     fun add(
         @RequestBody @Valid newTopicForm: NewTopicForm,
-        uriBuilder: UriComponentsBuilder
+        uriBuilder: UriComponentsBuilder,
     ): ResponseEntity<TopicView> {
         val topicView = service.add(newTopicForm)
         val uri = uriBuilder.path("/topics/${topicView.id}").build().toUri()

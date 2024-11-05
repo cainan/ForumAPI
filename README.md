@@ -7,3 +7,4 @@
 - Mockk
 - AssertJ
 - Testcontainers
+- Swagger
