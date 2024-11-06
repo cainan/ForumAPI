@@ -13,6 +13,6 @@ create database forum;
 use forum;
 
 
-
-
-
+// installing redis using docker
+docker pull redis:latest
+docker run --name redis-local -d redis:latest
