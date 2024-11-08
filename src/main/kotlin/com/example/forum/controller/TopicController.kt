@@ -8,8 +8,6 @@ import com.example.forum.service.TopicService
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
-import org.springframework.cache.annotation.CacheEvict
-import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
@@ -23,7 +21,6 @@ import org.springframework.web.util.UriComponentsBuilder
 class TopicController(private val service: TopicService) {
 
     @GetMapping
-    @Cacheable("topicListCache")
     fun list(
         @RequestParam(required = false) courseName: String?,
         /*@PageableDefault(size = 5)*/ pagination: Pageable,
@@ -38,7 +35,6 @@ class TopicController(private val service: TopicService) {
 
     @PostMapping
     @Transactional
-    @CacheEvict(value = ["topicListCache"], allEntries = true)
     fun add(
         @RequestBody @Valid newTopicForm: NewTopicForm,
         uriBuilder: UriComponentsBuilder,
@@ -50,7 +46,6 @@ class TopicController(private val service: TopicService) {
 
     @PutMapping
     @Transactional
-    @CacheEvict(value = ["topicListCache"], allEntries = true)
     fun update(
         @RequestBody @Valid updateTopicForm: UpdateTopicForm,
     ): ResponseEntity<TopicView> {
@@ -59,7 +54,6 @@ class TopicController(private val service: TopicService) {
     }
 
     @DeleteMapping("/{id}")
-    @CacheEvict(value = ["topicListCache"], allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     fun remove(@PathVariable id: Long) {

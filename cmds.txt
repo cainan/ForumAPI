@@ -16,3 +16,7 @@ use forum;
 // installing redis using docker
 docker pull redis:latest
 docker run --name redis-local -d redis:latest
+docker run -p 6379:6379 --name redis redis:latest
+docker exec -it redis sh
+redis-cli
+monitor

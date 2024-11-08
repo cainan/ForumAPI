@@ -1,6 +1,7 @@
 package com.example.forum.dto
 
 import com.example.forum.model.TopicStatus
+import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -10,7 +11,5 @@ data class TopicView(
     val message: String,
     val topicStatus: TopicStatus,
     val creationDate: LocalDateTime,
-    val editedDate: LocalDate?
-) {
-
-}
+    val editedDate: LocalDate?,
+) : Serializable

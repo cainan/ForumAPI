@@ -8,7 +8,8 @@ import com.example.forum.exception.NotFoundException
 import com.example.forum.mapper.TopicFormMapper
 import com.example.forum.mapper.TopicViewMapper
 import com.example.forum.repository.TopicRepository
-import jakarta.persistence.EntityManager
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -22,6 +23,7 @@ class TopicService(
     /*private val em: EntityManager*/
 ) {
 
+    @Cacheable("topicListCache", key = "#root.method.name")
     fun list(courseName: String?, pagination: Pageable): Page<TopicView> {
 //        println(em)
         val topicList = if (courseName == null) {
@@ -42,12 +44,14 @@ class TopicService(
         )
     }
 
+    @CacheEvict(value = ["topicListCache"], allEntries = true)
     fun add(newTopicForm: NewTopicForm): TopicView {
         val topic = topicFormMapper.map(newTopicForm)
         repository.save(topic)
         return topicViewMapper.map(topic)
     }
 
+    @CacheEvict(value = ["topicListCache"], allEntries = true)
     fun update(updateTopicForm: UpdateTopicForm): TopicView {
         val topic = repository.findById(updateTopicForm.id).orElseThrow {
             NotFoundException("Topic not found")
@@ -60,6 +64,7 @@ class TopicService(
         return topicViewMapper.map(topic)
     }
 
+    @CacheEvict(value = ["topicListCache"], allEntries = true)
     fun remove(id: Long) {
 //        if (!repository.existsById(id)) {
 //            throw NotFoundException("Topic not found")
