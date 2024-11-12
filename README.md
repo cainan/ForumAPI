@@ -8,3 +8,5 @@
 - AssertJ
 - Testcontainers
 - Swagger
+- Redis
+- Starter-mail using mailtrap to debug

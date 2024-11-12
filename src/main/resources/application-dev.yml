@@ -16,6 +16,22 @@ spring:
     host: localhost
     port: 6379
 
+#mailtrap
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: ab7285e909a1e7
+    password: ff3c658bf167fc
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        debug: true
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
   h2:
     console:
       enabled: true
