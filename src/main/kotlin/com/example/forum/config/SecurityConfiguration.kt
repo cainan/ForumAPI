@@ -30,6 +30,7 @@ class SecurityConfiguration(
                     .requestMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
                     .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
                     .requestMatchers("/topics").hasAuthority("READ_WRITE")
+                    .requestMatchers("/answers").hasAuthority("READ_WRITE")
                     .anyRequest().authenticated()
             }
             .addFilterBefore(

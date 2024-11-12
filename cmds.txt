@@ -20,3 +20,8 @@ docker run -p 6379:6379 --name redis redis:latest
 docker exec -it redis sh
 redis-cli
 monitor
+
+
+// checando mysql
+docker exec -it mysql-container bash
+mysql -u root -p
