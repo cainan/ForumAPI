@@ -10,3 +10,4 @@
 - Swagger
 - Redis
 - Starter-mail using mailtrap to debug
+- Thymeleaf to create reports
