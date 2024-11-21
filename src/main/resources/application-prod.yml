@@ -1,20 +1,40 @@
 spring:
   datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:forum
-    username: sa
-    password:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mna97msstjnkkp7h.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/u0v6yd10hkhn2v4l
+    username: ${{ MYSQL_USERNAME }}
+    password: ${{ MYSQL_PASSWORD }}
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    #defer-datasource-initialization: true
     properties:
       hibernate:
-        show_sql: true
-        format_sql: true
+        show sql: true
+        format sql: true
+  cache:
+    type: redis
+
+  redis:
+    host: redis-13630.c98.us-east-1-4.ec2.redns.redis-cloud.com
+    port: 13630
+    password: ${{ REDIS_PASSWORD }}
+
+  #mailtrap
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: ab7285e909a1e7
+    password: ff3c658bf167fc
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        debug: true
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
   h2:
     console:
-      enabled: true # localhost:8080/h2-console
-  #flyway.locations.filesystem: db/migration
-
+      enabled: true
 jwt:
-  secret: mysecret
+  secret: secret
