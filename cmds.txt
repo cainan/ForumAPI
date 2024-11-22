@@ -25,3 +25,8 @@ monitor
 // checando mysql
 docker exec -it mysql-container bash
 mysql -u root -p
+
+
+// change heroku stack:
+heroku git:remote -a <application>
+heroku stack:set container
