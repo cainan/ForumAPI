@@ -2,8 +2,8 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://mna97msstjnkkp7h.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/u0v6yd10hkhn2v4l
-    username: ${ MYSQL_USERNAME }
-    password: ${ MYSQL_PASSWORD }
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
   jpa:
     properties:
       hibernate:
@@ -15,7 +15,7 @@ spring:
   redis:
     host: redis-13630.c98.us-east-1-4.ec2.redns.redis-cloud.com
     port: 13630
-    password: ${ REDIS_PASSWORD }
+    password: ${REDIS_PASSWORD}
 
   #mailtrap
   mail:
