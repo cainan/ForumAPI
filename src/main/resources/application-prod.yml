@@ -17,7 +17,6 @@ spring:
     host: redis-13630.c98.us-east-1-4.ec2.redns.redis-cloud.com
     port: 13630
     password: ${REDIS_PASSWORD}
-    db: redis-rediscloud-tapered-73760
 
   #mailtrap
   mail:
