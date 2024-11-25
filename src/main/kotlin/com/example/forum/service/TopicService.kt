@@ -23,7 +23,7 @@ class TopicService(
     /*private val em: EntityManager*/
 ) {
 
-//    @Cacheable(cacheNames = ["topicListCache"], key = "#root.method.name")
+    @Cacheable(cacheNames = ["topicListCache"], key = "#root.method.name")
     fun list(courseName: String?, pagination: Pageable): Page<TopicView> {
         val topicList = if (courseName == null) {
             repository.findAll(pagination)

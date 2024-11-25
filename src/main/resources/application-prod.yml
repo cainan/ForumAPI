@@ -16,6 +16,7 @@ spring:
   redis:
     host: redis-13630.c98.us-east-1-4.ec2.redns.redis-cloud.com
     port: 13630
+    username: default
     password: ${REDIS_PASSWORD}
 
   #mailtrap
